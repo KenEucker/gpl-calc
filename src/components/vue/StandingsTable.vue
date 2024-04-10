@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue"
-import { getStandings } from "../../lib";
+import { getStandings, getDateAbbreviation } from "../../lib";
 import type { SortType } from "vue3-easy-data-table";
 
 
@@ -27,6 +27,7 @@ if (!_data.value?.length) {
     const standings = await getStandings()
     const standing = standings[0]
 
+    _date.value = standing.date
     _data.value = _type.value === "Pro" ? standing.proleaderboard : standing.beginnerleaderboard
     _headers.value = [
         { text: "Rank", value: "rank", sortable: true },
@@ -51,7 +52,7 @@ if (_data.value?.length && !_headers.value?.length) {
 </script>
 
 <template>
-    <h2 class="text-2xl font-semibold text-gray-800">{{ _type }} Standings For {{ _date.toDateString() }}</h2>
+    <h2 class="text-2xl font-semibold text-gray-800">{{ _type }} Standings For {{ getDateAbbreviation(_date) }}</h2>
     <EasyDataTable 
         v-if="_data?.length"
         :headers="_headers"

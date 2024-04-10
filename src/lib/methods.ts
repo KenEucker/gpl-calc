@@ -1,13 +1,22 @@
-import type { Slug } from "@sanity/types";
+import type { Slug } from "@sanity/types"
+import type { Player } from "./types"
 
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
-  });
+  })
+}
+
+export function getDateAbbreviation(date: Date) {
+  return new Date(date).toISOString().split('T')[0]
 }
 
 export function isSlug(value: string | Slug): value is Slug {
-  return typeof value === 'object' && 'current' in value;
+  return typeof value === 'object' && 'current' in value
+}
+
+export function isPlayer(value: string | Player): value is Player {
+  return typeof value === 'object' && 'name' in value
 }

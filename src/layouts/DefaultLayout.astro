@@ -1,5 +1,5 @@
 ---
-import Base from './Base.astro'
+import BaseLayout from './BaseLayout.astro'
 
 interface Props {
   title: string;
@@ -10,7 +10,7 @@ interface Props {
 const { title, header, showBack } = Astro.props;
 ---
 
-<Base title={title} showBack={showBack}>
+<BaseLayout title={title} showBack={showBack}>
   <div class="container">
     <header class="header">
       <a
@@ -41,7 +41,7 @@ const { title, header, showBack } = Astro.props;
       </p>
     </footer>
   </div>
-</Base>
+</BaseLayout>
 
 <style>
   .container {

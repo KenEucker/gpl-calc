@@ -1,4 +1,5 @@
 ---
+import GenerateStandings from "@components/vue/GenerateStandings.vue"
 import DefaultLayout from "../layouts/DefaultLayout.astro"
 import StandingsTable from "@components/vue/StandingsTable.vue"
 ---
@@ -7,6 +8,7 @@ import StandingsTable from "@components/vue/StandingsTable.vue"
   header="Welcome to the Gerlach Pool League!"
   title="Gerlach Pool League Standings"
 >
+  <GenerateStandings client:load/>
   <StandingsTable type="Pro" client:load/>
   <StandingsTable type="Beginner" client:load/>
 </DefaultLayout>

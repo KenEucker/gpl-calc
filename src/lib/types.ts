@@ -7,8 +7,9 @@ export interface Card {
   slug: Slug;
   date: Date;
   game: string;
-  winner: Player;
-  loser: Player;
+  winner: Player | string;
+  loser: Player | string;
+  referee: Player | string;
 }
 
 export interface Post {
@@ -27,6 +28,7 @@ export interface Post {
 
 export interface Player {
   _type: "player";
+  _id: string;
   _createdAt: string;
   name?: string;
   slug: Slug;
