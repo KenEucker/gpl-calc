@@ -19,13 +19,16 @@ const {
   VITE_PUBLIC_SANITY_DATASET,
   PUBLIC_SANITY_STUDIO_TOKEN,
   PUBLIC_SANITY_TOKEN,
+  VITE_PUBLIC_SANITY_TOKEN,
 } = loadEnv(import.meta.env.MODE, process.cwd(), "");
 import { defineConfig } from "astro/config";
+
+console.log("ENVIRO->>>>>>>",import.meta.env.MODE)
 
 // Different environments use different variables
 const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID || VITE_PUBLIC_SANITY_STUDIO_PROJECT_ID || VITE_PUBLIC_SANITY_PROJECT_ID;
 const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET || VITE_PUBLIC_SANITY_STUDIO_DATASET || VITE_PUBLIC_SANITY_DATASET;
-const token = PUBLIC_SANITY_STUDIO_TOKEN || PUBLIC_SANITY_TOKEN;
+const token = PUBLIC_SANITY_STUDIO_TOKEN || PUBLIC_SANITY_TOKEN || VITE_PUBLIC_SANITY_TOKEN;
 
 // https://astro.build/config
 export default defineConfig({
