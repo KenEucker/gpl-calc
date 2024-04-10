@@ -1,6 +1,16 @@
 import type { PortableTextBlock } from "@portabletext/types";
 import type { ImageAsset, Slug } from "@sanity/types";
 
+export interface Card {
+  _type: "card";
+  _createdAt: string;
+  slug: Slug;
+  date: Date;
+  game: string;
+  winner: Player;
+  loser: Player;
+}
+
 export interface Post {
   _type: "post";
   _createdAt: string;

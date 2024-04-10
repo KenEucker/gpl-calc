@@ -12,7 +12,7 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<DefaultLayout header={post.title!} title={post.title!}>
+<DefaultLayout header={post.title!} title={post.title!} showBack={true}>
     <section class="post">
       {
         post.mainImage ? (

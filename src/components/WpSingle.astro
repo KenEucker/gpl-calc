@@ -1,11 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import Layout from "../layouts/WP.astro";
+import WPLayout from "../layouts/WPLayout.astro";
 // ... rest of our imports & fetch functions
 const { post } = Astro.props;
 ---
 
-<Layout title={post?.slug}>
+<WPLayout title={post?.slug} showBack={true}>
 
   <article class="max-w-screen-md mx-auto">
 
@@ -21,4 +21,4 @@ const { post } = Astro.props;
 
   </article>
 
-</Layout>
+</WPLayout>

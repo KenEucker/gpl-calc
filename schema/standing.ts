@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import { slugifySource } from './util'
+import type { Card } from 'src/lib/types'
 
 export default defineType({
   name: 'standing',
@@ -118,7 +119,7 @@ export default defineType({
           const slugSource = () => slugifySource(`gpl-${doc.date}-${sameDayNumber}`)
 
           while (!mostRecentStandingFound) {
-            await client.fetch(`*[_type == "standing" && slug.current == "${slugSource()}"][0] {_id}`).then(card => {
+            await client.fetch(`*[_type == "standing" && slug.current == "${slugSource()}"][0] {_id}`).then((card: Card) => {
               if (card) {
                 sameDayNumber++
               } else {

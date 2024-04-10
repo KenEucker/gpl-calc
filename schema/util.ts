@@ -1,4 +1,4 @@
-export const slugifySource = (s) => s
+export const slugifySource = (s: string) => s
     .toLowerCase()
     //Remove spaces
     .replace(/\s+/g, "_")

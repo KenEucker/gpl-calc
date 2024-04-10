@@ -1,5 +1,5 @@
 <script setup>
-import { defineEmits, toRef } from 'vue'
+import { toRef } from 'vue'
 const props = defineProps({
   players: Array,
   label: String,

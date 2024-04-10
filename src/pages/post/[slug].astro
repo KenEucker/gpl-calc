@@ -19,7 +19,6 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 const { slug } = Astro.params as Params;
 
 const post = await getPost(slug);
-console.log({post})
 ---
 
 {post ? post.type === 'post' ? <WpSingle post={post} /> : <Single post={post} /> : <NotFound />}
