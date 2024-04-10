@@ -22,6 +22,7 @@ const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET;
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'https://keneucker.github.io/gpl-calc',
     integrations: [
       tailwind({
         config: {
