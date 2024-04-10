@@ -27,4 +27,4 @@ export function generateGUID(): string {
   return `${timestamp}-${randomNum}`;
 }
 
-export const getPageUrl = (path = '') => `${import.meta.env.BASE_URL ?? ''}/${path}`
+export const getPageUrl = (path = '') => `${import.meta.env.SITE}${import.meta.env.BASE_URL ?? ''}${path}`
