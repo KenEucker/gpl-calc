@@ -1,0 +1,25 @@
+---
+import type { InferGetStaticParamsType } from "astro";
+import { getPost, getPosts } from "../../lib";
+import type { Post } from '../../lib'
+import NotFound from "../../components/NotFound.astro";
+import Single from "../../components/Single.astro";
+import WpSingle from "../../components/WpSingle.astro";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const paths = posts.map((post: Post) => ({
+    params: { slug: typeof post.slug === "string" ? post.slug : post.slug.current },
+  }));
+
+  return paths
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+const { slug } = Astro.params as Params;
+
+const post = await getPost(slug);
+console.log({post})
+---
+
+{post ? post.type === 'post' ? <WpSingle post={post} /> : <Single post={post} /> : <NotFound />}

@@ -1,0 +1,45 @@
+---
+import GameCardForm from '../components/vue/GameCardForm.vue'
+import Form from "../layouts/Form.astro";
+---
+
+<Form title="GPL Game Card Entry Form">
+  <div class="pt-24 pb-24 pl-3 pr-3 bg-gray-800">
+    <div
+      class="pt-0 pb-0 pl-3 pr-3 ml-auto mr-auto max-w-7xl sm:px-5 lg:px-12"
+    >
+      <div class="bg-white rounded-xl sm:p-10">
+        <div class="grid grid-cols-1 lg:gap-x-10 lg:grid-cols-12 lg:gap-y-8">
+          <div class="hidden lg:col-span-5 lg:block">
+            <img
+              src="https://gerlachpool.files.wordpress.com/2024/04/pxl_20240402_150843491.jpg"
+              class="object-cover w-full h-full rounded-2xl"
+            />
+          </div>
+          <div class="pt-8 pb-8 pl-8 pr-8 lg:col-span-7">
+            <p
+              class="mb-4 font-extrabold leading-snug tracking-tight text-left text-gray-900 md:text-4xl"
+            >
+              Gerlach Pool Game Card entry
+            </p>
+            <div>
+              <div class="grid grid-cols-2 gap-4"></div>
+            </div>
+            <div>
+              <GameCardForm client:load />
+              
+              <div
+                class="flex items-center justify-start pt-6 pb-0 pl-0 pr-0 mt-6 mb-0 ml-0 mr-0 border-t-2 border-gray-100"
+              >
+                <p class="text-sm text-gray-800">
+                  Having issues with this form?
+                </p>
+                <a class="mt-0 mb-0 ml-2 mr-0 text-sm text-blue-500">Too Bad</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Form>

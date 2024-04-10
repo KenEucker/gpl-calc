@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/WP.astro";
+// ... rest of our imports & fetch functions
+const { post } = Astro.props;
+---
+
+<Layout title={post?.slug}>
+
+  <article class="max-w-screen-md mx-auto">
+
+      <div class="text-center  w-auto mx-auto mb-5">
+        <p class="rounded-full bg-slate-300 py-2 px-4 inline-block">
+          {new Date(post.date).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
+        </p>
+      </div>
+      <h1 class="text-center text-3xl text-bold mb-10">{post.title}</h1>
+      <Image class="w-full object-cover aspect-2/3 mb-5" alt="" src={post.featured_image} width={1500} height={1000} />
+      <!-- We can use the set:html directive with a self closing tag to output raw html -->
+      <div set:html={post.content} />
+
+  </article>
+
+</Layout>

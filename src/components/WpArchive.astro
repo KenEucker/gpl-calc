@@ -1,0 +1,13 @@
+---
+import type { Post } from "../lib";
+import WpCard from "./WpCard.astro";
+
+const { node } = Astro.props;
+---     
+ <h1>{node.name} - Archive</h1>
+
+ {node.posts.nodes.map((post: Post) => {
+    return (
+        <WpCard post={post} />
+    )
+})}

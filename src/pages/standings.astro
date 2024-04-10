@@ -1,0 +1,13 @@
+---
+import DefaultLayout from "../layouts/DefaultLayout.astro"
+import StandingsTable from "@components/vue/StandingsTable.vue"
+---
+
+<DefaultLayout
+  header="Welcome to the Gerlach Pool League!"
+  title="Gerlach Pool League Standings"
+>
+  <StandingsTable type="Pro" client:load/>
+  <StandingsTable type="Beginner" client:load/>
+</DefaultLayout>
+
