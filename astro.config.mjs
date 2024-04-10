@@ -20,10 +20,10 @@ const {
   PUBLIC_SANITY_STUDIO_TOKEN,
   PUBLIC_SANITY_TOKEN,
   VITE_PUBLIC_SANITY_TOKEN,
-} = loadEnv(import.meta.env.MODE, process.cwd(), "");
+} = loadEnv(import.meta.env, process.cwd(), "");
 import { defineConfig } from "astro/config";
 
-console.log("ENVIRO->>>>>>>",import.meta.env.MODE)
+console.log("ENVIRO->>>>>>>",import.meta.env)
 
 // Different environments use different variables
 const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID || VITE_PUBLIC_SANITY_STUDIO_PROJECT_ID || VITE_PUBLIC_SANITY_PROJECT_ID;
@@ -31,7 +31,7 @@ const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET || VITE_PU
 const token = PUBLIC_SANITY_STUDIO_TOKEN || PUBLIC_SANITY_TOKEN || VITE_PUBLIC_SANITY_TOKEN;
 
 // https://astro.build/config
-export default defineConfig({
+const config = defineConfig({
     site: 'https://keneucker.github.io/gpl-calc',
     integrations: [
       tailwind({
@@ -57,7 +57,12 @@ export default defineConfig({
         apiVersion: "2023-03-20" // Set to date of setup to use the latest API version
       }),
       react(),
-      sentry(),
-      spotlightjs(),
     ]
 });
+
+if (import.meta.env.MODE === 'development') {
+  config.integrations.push(spotlightjs())
+  config.integrations.push(sentry())
+}
+
+export default config;

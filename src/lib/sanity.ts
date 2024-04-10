@@ -87,7 +87,7 @@ export const createSanityStanding = async (standing: Standing) => {
           _type: 'slug',
           current: await slugifyStanding(standing, sanityClient),
       },
-      players: standing.players.map(player=> {
+      players: standing.players.map((player: Player) => {
           return {
               _key: generateGUID(),
               _type: 'reference',

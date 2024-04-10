@@ -48,7 +48,7 @@ export const slugifyCard = async (doc: any, client: SanityClient) => {
   return slugSource();
 };
 
-export const slugifyStanding = async (doc, client) => {
+export const slugifyStanding = async (doc: Standing, client: SanityClient) => {
   let sameDayNumber = 1
   let mostRecentStandingFound = false
   const slugSource = () => slugifySource(`gpl-${getDateAbbreviation(doc.date)}-${sameDayNumber}`)

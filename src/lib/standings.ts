@@ -1,6 +1,4 @@
-import { sanityClient } from "sanity:client"
-import { slugifyStanding } from "schema/util"
-import { getDateAbbreviation, isPlayer } from "./methods"
+import { isPlayer } from "./methods"
 import { getSanityPlayer, getSanityStandings } from "./sanity"
 import type { Card, Player, Standing } from "./types"
 
@@ -25,8 +23,8 @@ export const generateStandings = async (cards: Card[]) => {
 
     for(const card of cards) {
         // check if the player is already in the standings
-        const winnerIndex = standings.players.findIndex((player) => player.name === card.winner)
-        const loserIndex = standings.players.findIndex((player) => player.name === card.loser)
+        const winnerIndex = standings.players.findIndex((player: Player) => player.name === card.winner)
+        const loserIndex = standings.players.findIndex((player: Player) => player.name === card.loser)
 
         const winner = (winnerIndex === -1 ? isPlayer(card.winner) ? card.winner : await getSanityPlayer(card.winner) : standings.players[winnerIndex]) as Player
         const loser = (loserIndex === -1 ? isPlayer(card.loser) ? card.loser : await getSanityPlayer(card.loser) : standings.players[loserIndex]) as Player
