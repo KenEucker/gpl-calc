@@ -1,8 +1,8 @@
 import { sanityClient } from "sanity:client"
 import groq from "groq"
 import type { Post, Player, Standing, Card } from "./types"
-import { isPlayer, getDateAbbreviation } from "./methods"
-import { slugifyCard } from "schema/util"
+import { isPlayer, getDateAbbreviation, generateGUID } from "./methods"
+import { slugifyCard, slugifyStanding } from "schema/util"
 
 export async function getSanityPosts(): Promise<Post[]> {
   return sanityClient.fetch(
@@ -18,7 +18,7 @@ export async function getSanityPlayers(): Promise<Player[]> {
 
 export async function getSanityPlayer(name: string): Promise<Player> {
   return await sanityClient.fetch(
-    groq`*[_type == "player" && name == $name][0]`,
+    groq`*[_type == "player" && name == $name][0]{_id, about, "bracket": select(bracket == "1" => "Beginner", bracket == "3" => "Pro", null), name}`,
     {
       name,
     }
@@ -49,8 +49,6 @@ export async function getSanityCard(slug: string): Promise<Card[]> {
     groq`*[_type == "card" && slug.current=${slug}]{"winner": winner->name, "loser": loser->name, "referee": referee->name, game, date}`)
 }
 
-
-
 export async function createSanityCard(card: Card): Promise<any> {
   const newCard: any = {
     _type: 'card',
@@ -79,4 +77,49 @@ export async function createSanityCard(card: Card): Promise<any> {
   newCard.slug.current = await slugifyCard(newCard, sanityClient)
 
   return await sanityClient.create(newCard)
+}
+
+export const createSanityStanding = async (standing: Standing) => {
+  const newStanding: any = {
+      _type: 'standing',
+      date: getDateAbbreviation(standing.date),
+      slug: {
+          _type: 'slug',
+          current: await slugifyStanding(standing, sanityClient),
+      },
+      players: standing.players.map(player=> {
+          return {
+              _key: generateGUID(),
+              _type: 'reference',
+              _ref: player._id,
+              _weak: true,
+          }
+      }),
+      proleaderboard: standing.proleaderboard.map((position) => {
+          return {
+              _key: generateGUID(),
+              player: {
+                  _type: 'reference',
+                  _ref: position.player._id,
+                  _weak: true,
+              },
+              score: position.score,
+              games: position.games,
+          }
+      }),
+      beginnerleaderboard: standing.beginnerleaderboard.map((position) => {
+          return {
+              _key: generateGUID(),
+              player: {
+                  _type: 'reference',
+                  _ref: position.player._id,
+                  _weak: true,
+              },
+              score: position.score,
+              games: position.games,
+          }
+      }),
+  }
+
+  return await sanityClient.create(newStanding)
 }

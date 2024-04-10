@@ -1,6 +1,5 @@
 import {defineField, defineType} from 'sanity'
 import { slugifySource, slugifyCard } from './util'
-import type { Card, Player } from 'src/lib/types'
 
 export default defineType({
   name: 'card',

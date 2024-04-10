@@ -3,7 +3,7 @@ import type { ImageAsset, Slug } from "@sanity/types";
 
 export interface Card {
   _type: "card";
-  _createdAt: string;
+  _createdAt?: string;
   slug: Slug;
   date: Date;
   game: string;
@@ -14,7 +14,7 @@ export interface Card {
 
 export interface Post {
   _type: "post";
-  _createdAt: string;
+  _createdAt?: string;
   type?: string;
   date?: string;
   name?: string;
@@ -29,19 +29,35 @@ export interface Post {
 export interface Player {
   _type: "player";
   _id: string;
-  _createdAt: string;
+  _weak?: boolean;
+  _createdAt?: string;
   name?: string;
   slug: Slug;
-  bracket: "Begninner" | "Pro";
+  bracket: "Beginner" | "Pro";
   about: PortableTextBlock[];
 }
 
+export interface PlayerRef {
+  _type: string;
+  _id?: string;
+  _ref?: string;
+  _weak?: boolean;
+}
+
+export interface Position {
+  player: Player;
+  score: number;
+  games: number;
+}
+
+
 export interface Standing {
   _type: "standing";
-  _createdAt: string;
+  _createdAt?: string;
   slug: Slug;
-  players: Player[];
+  players: Player[] | PlayerRef[];
   date: Date;
-  beginnerleaderboard: string[];
-  proleaderboard: string[];
+  beginnerleaderboard: Position[];
+  proleaderboard: Position[];
 }
+

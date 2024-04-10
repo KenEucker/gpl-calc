@@ -20,3 +20,9 @@ export function isSlug(value: string | Slug): value is Slug {
 export function isPlayer(value: string | Player): value is Player {
   return typeof value === 'object' && 'name' in value
 }
+
+export function generateGUID(): string {
+  const timestamp = new Date().getTime();
+  const randomNum = Math.floor(Math.random() * 1000000);
+  return `${timestamp}-${randomNum}`;
+}
