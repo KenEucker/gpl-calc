@@ -3,17 +3,17 @@ import Card from "../components/Card.astro";
 import WpCard from "../components/WpCard.astro";
 import Welcome from "../components/Welcome.astro";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
-import { getPosts, type Post } from "../lib";
+import { getPosts, getPageUrl, type Post } from "../lib";
 
 const posts = await getPosts();
 ---
 
 <DefaultLayout header="Welcome to the Gerlach Pool League!" title="Gerlach Pool League Standings Caclulator">
   <section class="container flex">
-    <a href="/standings" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <a href={getPageUrl('standings')} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
       Standings
     </a>
-    <a href="/card" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 ml-4 rounded">
+    <a href={getPageUrl('card')} class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 ml-4 rounded">
       Add Cards
     </a>
   </section>

@@ -26,3 +26,5 @@ export function generateGUID(): string {
   const randomNum = Math.floor(Math.random() * 1000000);
   return `${timestamp}-${randomNum}`;
 }
+
+export const getPageUrl = (path = '') => `${import.meta.env.BASE_URL ?? ''}/${path}`

@@ -20,6 +20,7 @@ const {
   PUBLIC_SANITY_STUDIO_TOKEN,
   PUBLIC_SANITY_TOKEN,
   VITE_PUBLIC_SANITY_TOKEN,
+  SITE_BASE,
 } = loadEnv(import.meta.env.MODE, process.cwd(), "");
 import { defineConfig } from "astro/config";
 
@@ -27,11 +28,12 @@ import { defineConfig } from "astro/config";
 const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID || VITE_PUBLIC_SANITY_STUDIO_PROJECT_ID || VITE_PUBLIC_SANITY_PROJECT_ID;
 const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET || VITE_PUBLIC_SANITY_STUDIO_DATASET || VITE_PUBLIC_SANITY_DATASET;
 const token = PUBLIC_SANITY_STUDIO_TOKEN || PUBLIC_SANITY_TOKEN || VITE_PUBLIC_SANITY_TOKEN;
+const base = SITE_BASE ?? 'gpl-calc';
 
 // https://astro.build/config
 const config = defineConfig({
     site: 'https://keneucker.github.io/gpl-calc',
-    base: 'gpl-calc/',
+    base,
     integrations: [
       tailwind({
         config: {
@@ -60,8 +62,8 @@ const config = defineConfig({
 });
 
 if (import.meta.env.MODE === 'development') {
-  config.integrations.push(spotlightjs())
   config.integrations.push(sentry())
+  config.integrations.push(spotlightjs())
 }
 
 export default config;

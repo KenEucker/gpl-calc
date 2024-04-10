@@ -1,10 +1,12 @@
 ---
+import { getPageUrl } from "../lib";
+
 const { post } = Astro.props;
 // console.log("post.categories", post)
 ---
 
 <article>
-    <a class='post-link' href={`post/${post.slug}`} aria-label={post.title}>
+    <a class='post-link' href={getPageUrl(`post/${post.slug}`)} aria-label={post.title}>
         <h3>{post.title}</h3>    
         <section>
             <img 

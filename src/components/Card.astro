@@ -1,5 +1,5 @@
 ---
-import { formatDate, isSlug, urlFor, type Post } from "../lib";
+import { formatDate, getPageUrl, isSlug, urlFor, type Post } from "../lib";
 
 interface Props {
   post: Post;
@@ -24,7 +24,7 @@ const { post } = Astro.props;
     <h3 class="card__title">
       <a
         class="card__link"
-        href={`/post/${isSlug(post.slug) ? post.slug.current : post.slug }`}
+        href={getPageUrl(`/post/${isSlug(post.slug) ? post.slug.current : post.slug }`)}
       >
         {post.title}
       </a>
