@@ -20,10 +20,11 @@ const {
   PUBLIC_SANITY_STUDIO_TOKEN,
   PUBLIC_SANITY_TOKEN,
   VITE_PUBLIC_SANITY_TOKEN,
-} = loadEnv(import.meta.env, process.cwd(), "");
+} = loadEnv(import.meta.env.MODE, process.cwd(), "");
 import { defineConfig } from "astro/config";
 
 console.log("ENVIRO->>>>>>>",import.meta.env)
+console.log("PROCESS->>>>>>>",process.env)
 
 // Different environments use different variables
 const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID || VITE_PUBLIC_SANITY_STUDIO_PROJECT_ID || VITE_PUBLIC_SANITY_PROJECT_ID;

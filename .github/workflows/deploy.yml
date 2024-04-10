@@ -16,6 +16,10 @@ permissions:
 
 jobs:
   build:
+    env:
+      PUBLIC_SANITY_TOKEN: ${{ secrets.PUBLIC_SANITY_TOKEN }}
+      PUBLIC_SANITY_DATASET: ${{ secrets.PUBLIC_SANITY_DATASET }}
+      PUBLIC_SANITY_PROJECT_ID: ${{ secrets.PUBLIC_SANITY_PROJECT_ID }}
     runs-on: ubuntu-latest
     environment: github-pages
     steps:
