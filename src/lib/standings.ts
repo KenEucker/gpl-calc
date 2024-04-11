@@ -6,6 +6,23 @@ export const getStandings = async () => {
     return getSanityStandings()
 }
 
+/*
++---------------------+-------------------------------------------------------+
+|              Gerlach Pool League Standings Calculator                       |
++---------------------+-------------------------------------------------------+
+|                     |                        Scoring                        |
+|         Game        +---------------+----------------+----------+-----------+
+|                     | Beginner Wins | Beginner Loses | Pro Wins | Pro Loses |
++---------------------+---------------+----------------+----------+-----------+
+| 8-ball head-to-head |       3       |        0       |     0    |     -1    |
++---------------------+---------------+----------------+----------+-----------+
+|  8-ball cross-match |       3       |        0       |     2    |     -1    |
++---------------------+---------------+----------------+----------+-----------+
+|  9-ball cross-match |       4       |       -1       |     3    |     -1    |
++---------------------+---------------+----------------+----------+-----------+
+| 9-ball head-to-head |       3       |       -1       |     4    |     -1    |
++---------------------+---------------+----------------+----------+-----------+
+*/
 export const generateStandings = async (cards: Card[]) => {
     // loop through cards and generate standings
     const date = new Date()
@@ -38,55 +55,62 @@ export const generateStandings = async (cards: Card[]) => {
         // for each card, calculate the change in score for each player
         const crossBracketMatch = winner.bracket !== loser.bracket
         if (crossBracketMatch) {
+            // cross-bracket match
             if (winnerInProBracket) {
                 // pro is winner
                 if (gameWas9Ball) {
-                    // a player in the pro bracket wins 3 points if they win in 9-ball against a beginner
+                    // 9-ball cross-bracket match
+                    /// a player in the pro bracket wins 3 points if they win in 9-ball against a beginner
                     winnerScore = 3
                     loserScore = -1
                 } else {
-                    // There is no loss penalty for Beginners playing 8-ball.
+                    // 8-ball cross-bracket match
+                    /// There is no loss penalty for Beginners playing 8-ball.
                     winnerScore = 2
                 }
             } else {
                 // pro is loser
                 if (gameWas9Ball) {
+                    // 9-ball cross-bracket match
                     // a player in the beginner bracket wins 4 points if they win in 9-ball against a pro
                     winnerScore = 4
                 } else {
+                    // 8-ball cross-bracket match
                     /// A win in an 8-ball match cross-bracket is 3 points for the Beginner or 2 points for the Pro.
                     winnerScore = 3
                 }
 
-                // a player in the pro bracket loses 1 point if the lose a match
+                // a player in the pro bracket loses 1 point if they lose a match
                 /// A loss in an 8-ball match cross-bracket is -1 point for the Pro player. 
                 loserScore = -1
             }
         } else {
-            // same bracket match
+            // head-to-head match
             if (gameWas9Ball) {
+                // 9-ball head-to-head match
                 if (winnerInProBracket) {
-                    // 9-ball Pro match
+                    // Pro 9-ball head-to-head match
                     /// A win in a 9-ball match between Pros is 4 points.
                     winnerScore = 4
                 } else {
-                    // 9-ball Beginner match
-                    /// A loss in an 8-ball match between Beginners is 0 points.
-                    /// A win in 9-ball between beginners is 3 points.
+                    // Beginner 9-ball head-to-head match
+                    /// A win in 9-ball between Beginners is 3 points.
                     winnerScore = 3
                 }
-                /// A loss in a 9-ball match cross-bracket is -1 for the loser.
                 /// A loss in a 9-ball match between Pros is -1 point.
+                /// A loss in an 9-ball match between Beginners is -1 points.
                 loserScore = -1
             } else {
+                // 8-ball head-to-head match
                 if (!winnerInProBracket) {
-                    // 8-ball Beginner match
+                    // Beginner 8-ball head-to-head match
                     /// A win in an 8-ball match between Beginners is 3 points.
                     /// A win in a 9-ball match cross-bracket is 4 points for the Beginner or 3 points for the Pro player.
-                    winnerScore = 4
+                    winnerScore = 3
                 } else {
+                    // Pro 8-ball head-to-head match (NO POINTS)
                     /// Pro players are not able to gain points by playing 8-ball matches with other Pro players.
-                    loserScore = -1
+                    // loserScore = -1
                 }
             }
         }
