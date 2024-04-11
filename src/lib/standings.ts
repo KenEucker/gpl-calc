@@ -30,46 +30,64 @@ export const generateStandings = async (cards: Card[]) => {
         const loser = (loserIndex === -1 ? isPlayer(card.loser) ? card.loser : await getSanityPlayer(card.loser) : standings.players[loserIndex]) as Player
         const winnerInProBracket = winner.bracket === "Pro"
         const loserInProBracket = loser.bracket === "Pro"
+        const gameWas9Ball = card.game === "9-ball"
         let winnerScore = 0
         let loserScore = 0
+
 
         // for each card, calculate the change in score for each player
         const crossBracketMatch = winner.bracket !== loser.bracket
         if (crossBracketMatch) {
             if (winnerInProBracket) {
-                // pro wins against beginner
-                // a player in the pro bracket wins 3 points if they win in 9-ball against a beginner
-                winnerScore += 3
-                // a beginner loses 1 point if the lose a match to a pro in 9-ball
-                loserScore -= 1
+                // pro is winner
+                if (gameWas9Ball) {
+                    // a player in the pro bracket wins 3 points if they win in 9-ball against a beginner
+                    winnerScore = 3
+                    loserScore = -1
+                } else {
+                    // There is no loss penalty for Beginners playing 8-ball.
+                    winnerScore = 2
+                }
             } else {
-                // beginner wins against pro
-                // a player in the beginner bracket wins 4 points if they win in 9-ball against a pro
-                winnerScore += 4
+                // pro is loser
+                if (gameWas9Ball) {
+                    // a player in the beginner bracket wins 4 points if they win in 9-ball against a pro
+                    winnerScore = 4
+                } else {
+                    /// A win in an 8-ball match cross-bracket is 3 points for the Beginner or 2 points for the Pro.
+                    winnerScore = 3
+                }
+
                 // a player in the pro bracket loses 1 point if the lose a match
-                loserScore -= 1
+                /// A loss in an 8-ball match cross-bracket is -1 point for the Pro player. 
+                loserScore = -1
             }
         } else {
             // same bracket match
-            if (card.game === "9-ball") {
+            if (gameWas9Ball) {
                 if (winnerInProBracket) {
                     // 9-ball Pro match
-                    // a player in the pro bracket wins 4 points if they win in 9-ball against another pro
-                    winnerScore += 4
-                    // a player in the pro bracket loses 1 point if the lose a match
-                    loserScore -= 1
+                    /// A win in a 9-ball match between Pros is 4 points.
+                    winnerScore = 4
                 } else {
                     // 9-ball Beginner match
-                    // a player in the beginner bracket wins 3 points if they win in 9-ball against another beginner
-                    winnerScore += 3
+                    /// A loss in an 8-ball match between Beginners is 0 points.
+                    /// A win in 9-ball between beginners is 3 points.
+                    winnerScore = 3
                 }
+                /// A loss in a 9-ball match cross-bracket is -1 for the loser.
+                /// A loss in a 9-ball match between Pros is -1 point.
+                loserScore = -1
             } else {
                 if (!winnerInProBracket) {
                     // 8-ball Beginner match
-                    // a player in the beginner bracket wins 2 points if they win in 8-ball against another beginner
-                    winnerScore += 2
+                    /// A win in an 8-ball match between Beginners is 3 points.
+                    /// A win in a 9-ball match cross-bracket is 4 points for the Beginner or 3 points for the Pro player.
+                    winnerScore = 4
+                } else {
+                    /// Pro players are not able to gain points by playing 8-ball matches with other Pro players.
+                    loserScore = -1
                 }
-                // a player in the pro bracket cannot play another pro in 8-ball
             }
         }
 

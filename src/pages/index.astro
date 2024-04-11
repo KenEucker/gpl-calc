@@ -1,11 +1,11 @@
 ---
-import Card from "../components/Card.astro";
-import WpCard from "../components/WpCard.astro";
-import Welcome from "../components/Welcome.astro";
-import DefaultLayout from "../layouts/DefaultLayout.astro";
-import { getPosts, getPageUrl, type Post } from "../lib";
+import DefaultLayout from "../layouts/DefaultLayout.astro"
+import Welcome from "../components/Welcome.astro"
+import Card from "../components/Card.astro"
+import WpCard from "../components/WpCard.astro"
+import { getPosts, getPageUrl } from "../lib"
 
-const posts = await getPosts();
+const posts = await getPosts()
 ---
 
 <DefaultLayout header="Welcome to the Gerlach Pool League!" title="Gerlach Pool League Standings Caclulator">
@@ -18,6 +18,6 @@ const posts = await getPosts();
     </a>
   </section>
   <section>
-    {posts.length ? posts.map((post: Post) => post.type === 'post' ? <WpCard post={post} />  : <Card post={post} />) : <Welcome />}
+    {posts?.length ? posts.map((post) => post.type === 'post' ? <WpCard post={post} /> : <Card post={post} />) : <Welcome />}
   </section>
 </DefaultLayout>
