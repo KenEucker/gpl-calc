@@ -3,7 +3,7 @@ import DefaultLayout from "../layouts/DefaultLayout.astro"
 import Welcome from "../components/Welcome.astro"
 import Card from "../components/Card.astro"
 import WpCard from "../components/WpCard.astro"
-import { getPosts, getPageUrl } from "../lib"
+import { getPosts, getPageUrl, type Post } from "../lib"
 
 const posts = await getPosts()
 ---
@@ -18,6 +18,6 @@ const posts = await getPosts()
     </a>
   </section>
   <section>
-    {posts?.length ? posts.map((post) => post.type === 'post' ? <WpCard post={post} /> : <Card post={post} />) : <Welcome />}
+    {posts?.length ? posts.map((post: Post) => post.type === 'post' ? <WpCard post={post} /> : <Card post={post} />) : <Welcome />}
   </section>
 </DefaultLayout>
