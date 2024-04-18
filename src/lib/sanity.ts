@@ -36,7 +36,17 @@ export async function getSanityPost(slug: string): Promise<Post> {
 
 export async function getSanityStandings(): Promise<Standing[]> {
   return await sanityClient.fetch(
-    groq`*[_type == "standing"]{"slug": slug.current, date, "players": players[]->name, "proleaderboard": proleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(score desc), "beginnerleaderboard": beginnerleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(score desc)}`)
+    groq`*[_type == "standing"]{"slug": slug.current, date, "players": players[]->name, "proleaderboard": proleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(score desc), "beginnerleaderboard": beginnerleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(date desc)}`)
+}
+
+export async function getSanityStandingsByMonth(date: Date): Promise<Standing[]> {
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+  const dateRangeStart = firstDay.toISOString().slice(0,10)
+  const dateRangeEnd = lastDay.toISOString().slice(0,10)
+  // console.log(`*[_type == "standing" && date > "${dateRangeStart}" && date < "${dateRangeEnd}"]{"slug": slug.current, date, "players": players[]->name, "proleaderboard": proleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(score desc), "beginnerleaderboard": beginnerleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(date desc)}`)
+  return await sanityClient.fetch(
+          groq`*[_type == "standing" && date > "${dateRangeStart}" && date < "${dateRangeEnd}"]{"slug": slug.current, date, "players": players[]->name, "proleaderboard": proleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(score desc), "beginnerleaderboard": beginnerleaderboard[]{"player": player->name, "bracket": select(player->bracket == "1" => "Beginner", player->bracket == "3" => "Pro", null), score, games}| order(date desc)}`)
 }
 
 export async function getSanityCards(): Promise<Card[]> {

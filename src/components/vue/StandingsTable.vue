@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue"
-import { getStandings, getDateAbbreviation } from "../../lib";
+import { getStandingsByMonth, getDateAbbreviation } from "../../lib";
 import type { SortType } from "vue3-easy-data-table";
 
 
@@ -24,7 +24,7 @@ const sortBy = "score";
 const sortType: SortType = "desc";
 
 if (!_data.value?.length) {
-    const standings = await getStandings()
+    const standings = await getStandingsByMonth(_date.value)
     if (standings?.length) {
         const standing = standings[0]
 

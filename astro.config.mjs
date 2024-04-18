@@ -40,7 +40,8 @@ const config = defineConfig({
       tailwind({
         config: {
           applyBaseStyles: false,
-          purge: []
+          purge: [],
+          plugins: ['@tailwindcss/forms']
         }
       }),
       sitemap({

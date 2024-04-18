@@ -1,11 +1,14 @@
 import { isPlayer } from "./methods"
-import { getSanityPlayer, getSanityStandings } from "./sanity"
+import { getSanityPlayer, getSanityStandings, getSanityStandingsByMonth } from "./sanity"
 import type { Card, Player, Standing } from "./types"
 
 export const getStandings = async () => {
     return getSanityStandings()
 }
 
+export const getStandingsByMonth = async (date: Date) => {
+    return getSanityStandingsByMonth(date)
+}
 /*
 +---------------------+-------------------------------------------------------+
 |              Gerlach Pool League Standings Calculator                       |
