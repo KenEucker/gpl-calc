@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { toRef } from "vue"
-import { getDateAbbreviation, getCards } from "../../lib";
+import { toRef, onMounted } from 'vue'
+import { getDateAbbreviation, getCards } from '../../lib'
 
 
 const headers = [
@@ -16,9 +16,15 @@ const props = defineProps({
 })
 const cards = toRef(props.cards)
 
-if(!cards.value?.length) {
-   cards.value = await getCards()
-}
+onMounted(async () => {
+    if(!cards.value?.length) {
+        cards.value = await getCards()
+    }
+})
+
+defineOptions({
+    name: 'CardsTable',
+})
 </script>
 
 <template>

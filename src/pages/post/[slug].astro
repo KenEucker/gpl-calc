@@ -1,10 +1,10 @@
 ---
-import type { InferGetStaticParamsType } from "astro";
-import { getPost, getPosts } from "../../lib";
+import type { InferGetStaticParamsType } from 'astro'
+import { getPost, getPosts } from '../../lib'
 import type { Post } from '../../lib'
-import NotFound from "../../components/NotFound.astro";
-import Single from "../../components/Single.astro";
-import WpSingle from "../../components/WpSingle.astro";
+import NotFound from '../../components/NotFound.astro'
+import Single from '../../components/Single.astro'
+import WpSingle from '../../components/WpSingle.astro'
 
 export async function getStaticPaths() {
   const posts = await getPosts();

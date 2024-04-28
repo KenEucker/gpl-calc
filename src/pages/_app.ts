@@ -12,6 +12,9 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
 import 'vue3-easy-data-table/dist/style.css'
 
+import VueLoadingOverlay from "vue-loading-overlay/src/js/Component.vue"
+import "vue-loading-overlay/dist/css/index.css"
+
 
 export default (app: App) => {
     const pro = createProPlugin('fk-75a7008f008', { mask, dropdown })
@@ -19,5 +22,6 @@ export default (app: App) => {
     app.use(plugin, defaultConfig({ plugins: [pro] }))
     app.component('VueDatePicker', VueDatePicker)
     app.component('EasyDataTable', Vue3EasyDataTable)
+    app.component('VueLoadingOverlay', VueLoadingOverlay)
     app.use(autoAnimatePlugin)
 };

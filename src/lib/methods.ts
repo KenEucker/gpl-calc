@@ -1,5 +1,5 @@
-import type { Slug } from "@sanity/types"
-import type { Player } from "./types"
+import type { Slug } from '@sanity/types'
+import type { Player } from './types'
 
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {

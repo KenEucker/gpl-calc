@@ -12,10 +12,9 @@ const modelName = defineModel('name', { default: "" })
 const modelWinner = defineModel('winner', { default: false })
 const gamePlayers = toRef(props, 'players')
 const cannotBePlayer = toRef(props, 'cannotBe')
-const emits = defineEmits("change")
-
 const disabledOption = (player) => cannotBePlayer.value.includes(player)
 
+// const emits = defineEmits(['change'])
 // const onChange = () => emits("change", {modelName: modelName.value, modelWinner: modelWinner.value})
 </script>
 <template>

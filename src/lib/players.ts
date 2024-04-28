@@ -1,4 +1,4 @@
-import { getSanityPlayers } from "./sanity"
+import { getSanityPlayers } from './sanity'
 
 export const getPlayers = async () => {
     const sanityPlayers  = await getSanityPlayers()

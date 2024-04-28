@@ -1,6 +1,6 @@
-import { isPlayer } from "./methods"
-import { getSanityPlayer, getSanityStandings, getSanityStandingsByMonth } from "./sanity"
-import type { Card, Player, Standing } from "./types"
+import { isPlayer } from './methods'
+import { getSanityPlayer, getSanityStandings, getSanityStandingsByMonth } from './sanity'
+import type { Card, Player, Standing } from './types'
 
 export const getStandings = async () => {
     return getSanityStandings()
@@ -48,9 +48,9 @@ export const generateStandings = async (cards: Card[]) => {
 
         const winner = (winnerIndex === -1 ? isPlayer(card.winner) ? card.winner : await getSanityPlayer(card.winner) : standings.players[winnerIndex]) as Player
         const loser = (loserIndex === -1 ? isPlayer(card.loser) ? card.loser : await getSanityPlayer(card.loser) : standings.players[loserIndex]) as Player
-        const winnerInProBracket = winner.bracket === "Pro"
-        const loserInProBracket = loser.bracket === "Pro"
-        const gameWas9Ball = card.game === "9-ball"
+        const winnerInProBracket = winner.bracket === 'Pro'
+        const loserInProBracket = loser.bracket === 'Pro'
+        const gameWas9Ball = card.game === '9-ball'
         let winnerScore = 0
         let loserScore = 0
 

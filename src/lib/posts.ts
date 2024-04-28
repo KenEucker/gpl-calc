@@ -1,5 +1,5 @@
-import { getSanityPosts, getSanityPost } from "./sanity";
-import { getWpPost, getWpPosts } from "./wordpress";
+import { getSanityPosts, getSanityPost } from './sanity'
+import { getWpPost, getWpPosts } from './wordpress'
 
 export const getPosts = async () => {
     const wpPosts = await getWpPosts()

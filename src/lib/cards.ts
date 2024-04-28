@@ -1,5 +1,5 @@
-import { getSanityCards, getSanityCard, createSanityCard } from "./sanity"
-import type { Card } from "./types"
+import { getSanityCards, getSanityCard, createSanityCard } from './sanity'
+import type { Card } from './types'
 
 export const getCards = async () => {
     return getSanityCards()
