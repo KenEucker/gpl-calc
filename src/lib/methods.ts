@@ -9,8 +9,17 @@ export function formatDate(date: string) {
   })
 }
 
-export function getDateAbbreviation(date: Date) {
+export function getDateAbbreviation(date = new Date()) {
   return new Date(date).toISOString().split('T')[0]
+}
+
+export function getDateMonth(date = new Date()) {
+  console.log({date})
+  return date.toLocaleString('default', { month: 'long' })
+}
+
+export function getDateYear(date = new Date()) {
+  return new Date(date).getFullYear()
 }
 
 export function isSlug(value: string | Slug): value is Slug {

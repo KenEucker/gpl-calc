@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { toRef, onMounted } from 'vue'
-import { getDateAbbreviation, getCards } from '../../lib'
+import { getDateMonth, getDateYear, getCards } from '../../lib'
 
 
 const headers = [
@@ -13,6 +13,7 @@ const headers = [
 
 const props = defineProps({
     cards: Array,
+    date: Date,
 })
 const cards = toRef(props.cards)
 
@@ -28,7 +29,7 @@ defineOptions({
 </script>
 
 <template>
-    <h2 class="text-2xl font-semibold text-gray-800">Cards For {{ getDateAbbreviation(new Date()) }}</h2>
+    <h2 class="text-2xl font-semibold text-gray-800">Cards For The Month Of {{ getDateMonth(props.date) }} {{ getDateYear(props.date) }}</h2>
     <div v-if="cards?.length">
         <EasyDataTable :headers="headers" :items="cards" alternating />
     </div>

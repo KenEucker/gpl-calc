@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { defineModel, ref, onMounted } from 'vue'
-import { getCards, generateStandings, createSanityStanding } from '../../lib'
+import { getCardsByMonth, generateStandings, createSanityStanding } from '../../lib'
 import CardsTable from './CardsTable.vue'
 
 const model = defineModel()
@@ -26,7 +26,7 @@ const generateStandingsFromCards = async () => {
 }
 
 onMounted(async () => {
-    cards.value = await getCards()
+    cards.value = await getCardsByMonth()
 })
 
 defineOptions({
